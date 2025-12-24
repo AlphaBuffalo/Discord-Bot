@@ -19,7 +19,7 @@ module.exports = new ApplicationCommand({
      * @param {ChatInputCommandInteraction} interaction
      */
     run: async (client, interaction) => {
-        if (!interaction.guild) {
+        if (!interaction.guildId) {
             await interaction.reply({ content: 'This command can only be used in a server.', ephemeral: true });
             return;
         }
@@ -35,7 +35,7 @@ module.exports = new ApplicationCommand({
         }
 
         const entries = Object.entries(db)
-            .filter(([k]) => k.startsWith(`points-${interaction.guild.id}-`))
+            .filter(([k]) => k.startsWith(`points-${interaction.guildId}-`))
             .map(([k, v]) => ({ userId: k.split('-').pop(), points: Number(v) || 0 }))
             .sort((a, b) => b.points - a.points)
             .slice(0, limit);
@@ -47,7 +47,7 @@ module.exports = new ApplicationCommand({
 
         const lines = await Promise.all(entries.map(async (e, i) => {
             try {
-                const member = await interaction.guild.members.fetch(e.userId);
+                const member = await client.guilds.fetch(interaction.guildId).members.fetch(e.userId);
                 return `**${i+1}.** ${member.user.tag} — **${e.points}**`;
             } catch {
                 return `**${i+1}.** <@${e.userId}> — **${e.points}**`;
