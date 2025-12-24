@@ -2,27 +2,27 @@
   "name": "discord-bot",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "keywords": [],
+  "homepage": "https://github.com/AlphaBuffalo/Discord-Bot#readme",
+  "bugs": {
+    "url": "https://github.com/AlphaBuffalo/Discord-Bot/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AlphaBuffalo/Discord-Bot.git"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
+  "author": "",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/AlphaBuffalo/Discord-Bot/issues"
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/AlphaBuffalo/Discord-Bot#readme",
   "dependencies": {
     "colors": "^1.4.0",
     "discord.js": "^14.25.1",
     "dotenv": "^17.2.3",
-    "quick-yaml.db": "^1.2.2",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.1",
+    "quick-yaml.db": "^1.2.2"
   }
 }

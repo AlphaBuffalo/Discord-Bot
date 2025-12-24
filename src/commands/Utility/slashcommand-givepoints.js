@@ -24,7 +24,7 @@ module.exports = new ApplicationCommand({
         const target = interaction.options.getUser('user');
         const amount = interaction.options.getInteger('amount');
 
-        if (!interaction.guild) {
+        if (!interaction.guildId) {
             await interaction.reply({ content: 'This command can only be used in a server.', ephemeral: true });
             return;
         }
@@ -39,7 +39,7 @@ module.exports = new ApplicationCommand({
             return;
         }
 
-        const key = `points-${interaction.guild.id}-${target.id}`;
+        const key = `points-${interaction.guildId}-${target.id}`;
         const current = client.database.has(key) ? parseInt(client.database.get(key), 10) || 0 : 0;
         const updated = current + amount;
 
