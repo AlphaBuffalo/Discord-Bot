@@ -19,12 +19,12 @@ module.exports = new ApplicationCommand({
     run: async (client, interaction) => {
         const target = interaction.options.getUser('user') || interaction.user;
 
-        if (!interaction.guild) {
+        if (!interaction.guildId) {
             await interaction.reply({ content: 'This command can only be used in a server.', ephemeral: true });
             return;
         }
 
-        const key = `points-${interaction.guild.id}-${target.id}`;
+        const key = `points-${interaction.guildId}-${target.id}`;
         const current = client.database.has(key) ? Number(client.database.get(key)) || 0 : 0;
 
         await interaction.reply({ content: `**${target.tag}** has **${current}** point(s).` });
