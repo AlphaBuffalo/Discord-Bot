@@ -34,8 +34,8 @@ module.exports = new ApplicationCommand({
             return;
         }
 
-        if (!Number.isInteger(amount) || amount <= 0) {
-            await interaction.reply({ content: 'Please provide a valid positive integer amount.', ephemeral: true });
+        if (!Number.isInteger(amount)) {
+            await interaction.reply({ content: 'Please provide a valid integer amount.', ephemeral: true });
             return;
         }
 
