@@ -23,6 +23,9 @@ module.exports = new ApplicationCommand({
     run: async (client, interaction) => {
         const target = interaction.options.getUser('user');
         const amount = interaction.options.getInteger('amount');
+        const key = `points-${interaction.guildId}-${target.id}`;
+        const current = client.database.has(key) ? parseInt(client.database.get(key), 10) || 0 : 0;
+        const updated = current + amount;
 
         if (!interaction.guildId) {
             await interaction.reply({ content: 'This command can only be used in a server.', ephemeral: true });
@@ -39,9 +42,16 @@ module.exports = new ApplicationCommand({
             return;
         }
 
-        const key = `points-${interaction.guildId}-${target.id}`;
-        const current = client.database.has(key) ? parseInt(client.database.get(key), 10) || 0 : 0;
-        const updated = current + amount;
+        if (amount < -10 || amount > 10) {
+            await interaction.reply({ content: 'You can only give between -10 and 10 points at a time.', ephemeral: true });
+            return;
+        }
+
+        if (updated <= -10 || updated >= 10) {
+            await interaction.reply({ content: 'No one can have less than -10 or more than 10 points.', ephemeral: true })
+            return;
+        }
+
 
         client.database.set(key, updated);
 
