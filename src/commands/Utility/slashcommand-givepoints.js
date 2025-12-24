@@ -55,6 +55,6 @@ module.exports = new ApplicationCommand({
 
         client.database.set(key, updated);
 
-        await interaction.reply({ content: `Gave **${amount}** point(s) to **${target.tag}**. They now have **${updated}** point(s).` });
+        await interaction.reply({ content: `Gave **${amount}** point(s) to **${target.tag}**. They now have **${updated}** point(s).`, ephemeral: false });
     }
 }).toJSON();
