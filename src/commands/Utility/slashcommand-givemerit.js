@@ -28,7 +28,7 @@ module.exports = new ApplicationCommand({
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
-        today = yyyy+"-"+mm+"-"+dd;
+        today = yyyy+"-"+mm+"-"+dd; //This is some euro crap here
 
 
         const target = interaction.options.getUser('fag');
@@ -84,7 +84,7 @@ module.exports = new ApplicationCommand({
         //sending to the log channel
         try {
            // const channelId = '1453456363400462458';
-            const channelId = '1453182414456356937'; //testing channel
+            const channelId = '1453182414456356937'; //Changed to log channel
             const channel = await client.channels.fetch(channelId);
             if (channel){
                 await channel.send({content: `${alpha.tag} gave **${amount}** merit(s) to **${target.tag}**. They now have **${updated}** merit(s).`});
