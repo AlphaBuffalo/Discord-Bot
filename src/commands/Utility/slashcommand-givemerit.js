@@ -23,6 +23,13 @@ module.exports = new ApplicationCommand({
      */
     run: async (client, interaction) => {
 
+        console.log({
+            type: interaction.type,
+            isChatInput: interaction.isChatInputCommand?.(),
+            guild: interaction.guild,
+            guildId: interaction.guildId
+        });
+
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -40,7 +47,7 @@ module.exports = new ApplicationCommand({
         const history = `points-${interaction.guildId}-${target.id}-history`;
         let current_value = client.database.has(key) ? client.database.get(key) : {alpha:alpha.id,reason:reason,amount:amount,date:today};
         const currentMeritPoints = client.database.has(key) ? current_value.amount || 0 : 0;
-        let history_value = client.database.has(history) ? client.database.get(history) : [];
+        let history_value = client.database_log.has(history) ? client.database_log.get(history) : [];
         const updated = currentMeritPoints + amount;
         current_value.amount = updated;
         if (!interaction.guildId) {
@@ -63,12 +70,18 @@ module.exports = new ApplicationCommand({
             return;
         }
 
-        if (updated <= -10 || updated >= 10) {
-            await interaction.reply({ content: 'No one can have less than -10 or more than 10 points.', ephemeral: true })
+        if (updated < 0 || updated > 10) {
+            await interaction.reply({ content: 'No one can have less than 0 or more than 10 points.', ephemeral: true })
             return;
         }
-
-
+        try {
+            const guild = await client.guilds.fetch(interaction.guildId, { force: true });
+            const member = await guild.members.fetch(target.id);
+            await member.roles.remove(client.merit_levels);
+            await member.roles.add(client.merit_levels[updated-1]);
+        } catch (error) {
+            console.log(error);
+        }
         history_value.push({
             alpha:alpha.displayName,
             reason:reason,
@@ -78,19 +91,21 @@ module.exports = new ApplicationCommand({
 
         //updating the databse
         client.database.set(key, current_value);
-        client.database.set(history, history_value);
+        client.database_log.set(history, history_value);
 
         //sending to the log channel
         try {
            // const channelId = '1453456363400462458';
             const channelId = '1453182414456356937'; //Changed to log channel
-            const channel = await client.channels.fetch(channelId);
+            const channel = await interaction.guild.channels.fetch(channelId);
             if (channel){
                 await channel.send({content: `${alpha.displayName} gave **${amount}** merit(s) to **${target.tag}**. They now have **${updated}** merit(s).`});
             }    
         } catch (error) {
             console.log(error);
         }
+
+
         
         //responding to the user
         await interaction.reply({ content: `${alpha.displayName} gave **${amount}** merit(s) to **${target.tag}**. They now have **${updated}** merit(s).`, ephemeral: false });
