@@ -9,3 +9,6 @@ database.yml
 terminal.log
 database-log.yml
 database-log.yml
+configs.yml
+database-log.yml
+*.yml
