@@ -32,7 +32,7 @@ module.exports = new ApplicationCommand({
 
         const target = interaction.options.getUser('fag');
         const amount = interaction.options.getInteger('amount');
-        const alpha = client.user.displayName;
+        const alpha = client.user;
         const reason = interaction.options.getString('reason');
         
 
@@ -70,7 +70,7 @@ module.exports = new ApplicationCommand({
 
 
         history_value.push({
-            alpha:alpha.id,
+            alpha:alpha.displayName,
             reason:reason,
             amount:amount,
             date:today
