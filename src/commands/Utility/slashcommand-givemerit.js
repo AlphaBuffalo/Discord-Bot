@@ -99,7 +99,7 @@ module.exports = new ApplicationCommand({
             const channelId = '1453182414456356937'; //Changed to log channel
             const channel = await interaction.guild.channels.fetch(channelId);
             if (channel){
-                await channel.send({content: `${alpha.displayName} gave **${amount}** merit(s) to **${target.tag}**. They now have **${updated}** merit(s).`});
+                await channel.send({content: `${alpha.displayName} gave **${amount}** merit(s) to **${target.tag}** for "${reason}". They now have **${updated}** merit(s).`});
             }    
         } catch (error) {
             console.log(error);
@@ -108,7 +108,7 @@ module.exports = new ApplicationCommand({
 
         
         //responding to the user
-        await interaction.reply({ content: `${alpha.displayName} gave **${amount}** merit(s) to **${target.tag}**. They now have **${updated}** merit(s).`, ephemeral: false });
+        await interaction.reply({ content: `${alpha.displayName} gave **${amount}** merit(s) to **${target.tag}** for "${reason}". They now have **${updated}** merit(s).`, ephemeral: false });
 
     }
 }).toJSON();
