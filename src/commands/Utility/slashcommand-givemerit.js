@@ -32,7 +32,7 @@ module.exports = new ApplicationCommand({
 
         const target = interaction.options.getUser('fag');
         const amount = interaction.options.getInteger('amount');
-        const alpha = client.user;
+        const alpha = interaction.user;
         const reason = interaction.options.getString('reason');
         
 
@@ -86,14 +86,14 @@ module.exports = new ApplicationCommand({
             const channelId = '1453182414456356937'; //Changed to log channel
             const channel = await client.channels.fetch(channelId);
             if (channel){
-                await channel.send({content: `${alpha.tag} gave **${amount}** merit(s) to **${target.tag}**. They now have **${updated}** merit(s).`});
+                await channel.send({content: `${alpha.displayName} gave **${amount}** merit(s) to **${target.tag}**. They now have **${updated}** merit(s).`});
             }    
         } catch (error) {
             console.log(error);
         }
         
         //responding to the user
-        await interaction.reply({ content: `Gave **${amount}** merit(s) to **${target.tag}**. They now have **${updated}** merit(s).`, ephemeral: false });
+        await interaction.reply({ content: `${alpha.displayName} gave **${amount}** merit(s) to **${target.tag}**. They now have **${updated}** merit(s).`, ephemeral: false });
 
     }
 }).toJSON();
