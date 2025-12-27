@@ -4,7 +4,7 @@ const ApplicationCommand = require("../../structure/ApplicationCommand");
 
 module.exports = new ApplicationCommand({
     command: {
-        name: 'User Information',
+        name: 'UserInformation',
         type: 2,
     },
     options: {

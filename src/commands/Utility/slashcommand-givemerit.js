@@ -1,4 +1,4 @@
-const { ChatInputCommandInteraction } = require('discord.js');
+const { ChatInputCommandInteraction, Role } = require('discord.js');
 const DiscordBot = require('../../client/DiscordBot');
 const ApplicationCommand = require('../../structure/ApplicationCommand');
 
@@ -10,7 +10,6 @@ module.exports = new ApplicationCommand({
         options: [
             { name: 'fag', description: 'The Fag to give merit to', type: 6, required: true },
             { name: 'amount', description: 'Amount of merits to give', type: 4, required: true },
-            { name: 'alpha', description: 'Alpha that gives the merit', type: 6, required: true },
             { name: 'reason', description: 'Reason of the merit', type: 3, required: true }
         ]
     },
@@ -33,7 +32,7 @@ module.exports = new ApplicationCommand({
 
         const target = interaction.options.getUser('fag');
         const amount = interaction.options.getInteger('amount');
-        const alpha = interaction.options.getUser('alpha');
+        const alpha = client.user.displayName;
         const reason = interaction.options.getString('reason');
         
 
