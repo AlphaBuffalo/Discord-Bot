@@ -34,7 +34,9 @@ class DiscordBot extends Client {
     events_handler = new EventsHandler(this);
     database = new QuickYAML(config.database.path);
     database_log = new QuickYAML(config.database.log);
-    merit_levels = (new QuickYAML(config.database.configs)).get('merit-roles');
+    configs_yml = new QuickYAML(config.database.configs);
+    merit_levels = configs_yml.get('merit-roles');
+    merit_channel = configs_yml.get('merit-channel');
 
     constructor() {
         super({

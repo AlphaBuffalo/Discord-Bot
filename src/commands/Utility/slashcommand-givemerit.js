@@ -95,8 +95,7 @@ module.exports = new ApplicationCommand({
 
         //sending to the log channel
         try {
-           // const channelId = '1453456363400462458';
-            const channelId = '1453182414456356937'; //Changed to log channel
+            const channelId = client.configs_yml.merit_channel;
             const channel = await interaction.guild.channels.fetch(channelId);
             if (channel){
                 await channel.send({content: `<@${alpha.id}> gave **${amount}** merit(s) to **<@${target.id}>** for "${reason}". They now have **${updated}** merit(s).`});
