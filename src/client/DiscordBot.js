@@ -24,9 +24,9 @@ class DiscordBot extends Client {
     login_attempts = 0;
     login_timestamp = 0;
     statusMessages = [
-        { name: 'Status 1', type: 4 },
-        { name: 'Status 2', type: 4 },
-        { name: 'Status 3', type: 4 }
+        { name: 'Welcome to the Hierarchy', type: 4 },
+        { name: 'I serve the Alpha\'s commands', type: 4 },
+        { name: 'I give good fags merit', type: 4 }
     ];
 
     commands_handler = new CommandsHandler(this);
@@ -53,9 +53,9 @@ class DiscordBot extends Client {
             ],
             presence: {
                 activities: [{
-                    name: 'keep this empty',
+                    name: '',
                     type: 4,
-                    state: 'DiscordJS-V14-Bot-Template v3'
+                    state: 'Active'
                 }]
             }
         });
