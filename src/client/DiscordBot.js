@@ -7,6 +7,7 @@ const ComponentsHandler = require("./handler/ComponentsHandler");
 const ComponentsListener = require("./handler/ComponentsListener");
 const EventsHandler = require("./handler/EventsHandler");
 const { QuickYAML } = require('quick-yaml.db');
+const cronjob = require("./crons");
 
 class DiscordBot extends Client {
     collection = {
@@ -37,6 +38,8 @@ class DiscordBot extends Client {
     configs_yml = new QuickYAML(config.database.configs);
     merit_levels = this.configs_yml.get('merit-roles');
     merit_channel = this.configs_yml.get('merit-channel');
+    guildId = this.configs_yml.get('guildId');
+    leaderboard_channel = this.configs_yml.get('leaderboard-channel');
 
     constructor() {
         super({
@@ -85,10 +88,11 @@ class DiscordBot extends Client {
             this.components_handler.load();
             this.events_handler.load();
             this.startStatusRotation();
-
             warn('Attempting to register application commands... (this might take a while!)');
             await this.commands_handler.registerApplicationCommands(config.development);
             success('Successfully registered application commands. For specific guild? ' + (config.development.enabled ? 'Yes' : 'No'));
+
+            cronjob(this,this.guildId,this.leaderboard_channel);
         } catch (err) {
             error('Failed to connect to the Discord bot, retrying...');
             error(err);
