@@ -25,18 +25,18 @@ module.exports = new ApplicationCommand({
         const channel = interaction.options.getChannel('channel');
 
         if (!interaction.guildId) {
-            await interaction.reply({ content: 'This command can only be used in a server.', ephemeral: true });
+            await interaction.reply({ content: 'This command can only be used in a server.'});
             return;
         }
 
         if (!channel || channel.type !== 0) { // 0 is GUILD_TEXT
-            await interaction.reply({ content: 'Please select a valid text channel.', ephemeral: true });
+            await interaction.reply({ content: 'Please select a valid text channel.' });
             return;
         }
 
-        //const key = `logchannel-${interaction.guildId}`;
-        //client.database.set(key, channel.id);
+        const key = `merit-channel`;
+        client.configs_yml.set(key, channel.id);
 
-        await interaction.reply({ content: `Log channel has been set to ${channel}.`, ephemeral: true });
+        await interaction.reply({ content: `Log channel has been set to ${channel.name}.`});
     }
 }).toJSON();
