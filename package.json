@@ -23,6 +23,7 @@
     "discord.js": "^14.25.1",
     "dotenv": "^17.2.3",
     "js-yaml": "^4.1.1",
+    "node-cron": "^4.2.1",
     "quick-yaml.db": "^1.2.2"
   }
 }
