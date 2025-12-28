@@ -4,7 +4,7 @@ const ApplicationCommand = require("../../structure/ApplicationCommand");
 
 module.exports = new ApplicationCommand({
     command: {
-        name: 'show-modal',
+        name: 'config-modal',
         description: '[TESTING COMMAND] Opens a modal.',
         type: 1,
         options: []
